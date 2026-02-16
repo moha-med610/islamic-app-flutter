@@ -9,31 +9,20 @@ import 'package:meta/meta.dart';
 part 'quran_state.dart';
 
 class QuranCubit extends Cubit<QuranState> {
-  QuranCubit(this.getQuranUseCase, this.getSurahUseCase)
-    : super(QuranInitial());
+  QuranCubit(this.getQuranUseCase) : super(QuranInitial());
 
   final GetQuranUseCase getQuranUseCase;
-  final GetSurahUseCase getSurahUseCase;
 
   Future<void> getQuran() async {
     emit(Loading());
 
     final result = await getQuranUseCase();
 
+    if (isClosed) return;
+
     result.fold(
       (failure) => emit(Error(failure: failure)),
       (data) => emit(SuccessQuran(quran: data)),
-    );
-  }
-
-  Future<void> getSurah(int num) async {
-    emit(Loading());
-
-    final result = await getSurahUseCase(num);
-
-    result.fold(
-      (failure) => emit(Error(failure: failure)),
-      (data) => emit(SuccessSurah(surah: data)),
     );
   }
 }

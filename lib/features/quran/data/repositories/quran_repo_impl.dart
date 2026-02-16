@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:islamic_app/core/errors/failure.dart';
@@ -29,7 +31,7 @@ class QuranRepoImpl implements QuranRepo {
     try {
       final result = await service.getSurah(num);
 
-      return Right(result);
+      return Right(result.toEntity());
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionError) {
         return Left(NetworkError());

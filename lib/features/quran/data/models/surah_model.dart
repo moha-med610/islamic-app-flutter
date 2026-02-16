@@ -16,15 +16,11 @@ class SurahModel extends SurahEntity {
 
   SurahModel({
     required super.surahName,
-
     @JsonKey(name: "surahNameArabicLong") required super.surahNameAr,
-
     required super.revelationPlace,
     required super.totalAyah,
     required super.surahNo,
-
     required this.audioMap,
-
     @JsonKey(name: "arabic1") required super.ayah,
   }) : super(audio: audioMap);
 

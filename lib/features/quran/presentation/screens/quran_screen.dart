@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/core/service/di_service.dart';
 import 'package:islamic_app/core/widgets/error_widget.dart';
 import 'package:islamic_app/features/quran/presentation/controllers/cubit/quran_cubit.dart';
+import 'package:islamic_app/features/quran/presentation/controllers/cubit/surah_cubit.dart';
 import 'package:islamic_app/features/quran/presentation/screens/surah_screen.dart';
 import 'package:islamic_app/features/quran/presentation/widgets/quran_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -61,8 +62,8 @@ class QuranScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => BlocProvider(
-                            create: (_) => di<QuranCubit>()..getSurah(surahNo),
+                          builder: (_) => BlocProvider<SurahCubit>(
+                            create: (_) => di<SurahCubit>()..getSurah(surahNo),
                             child: SurahScreen(),
                           ),
                         ),

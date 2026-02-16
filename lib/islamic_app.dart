@@ -9,15 +9,18 @@ class IslamicApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      builder: (context, child) {
+        return Directionality(textDirection: TextDirection.rtl, child: child!);
+      },
       theme: ThemeData(
         textTheme: GoogleFonts.cairoTextTheme(),
         scaffoldBackgroundColor: Color(0xFF141414),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Color.fromARGB(255, 172, 171, 171),
+        ),
       ),
 
-      home: Directionality(
-        textDirection: TextDirection.rtl,
-        child: HomeScreen(),
-      ),
+      home: HomeScreen(),
     );
   }
 }

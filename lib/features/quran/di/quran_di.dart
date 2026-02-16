@@ -6,11 +6,13 @@ import 'package:islamic_app/features/quran/domain/repositories/quran_repo.dart';
 import 'package:islamic_app/features/quran/domain/usecases/get_quran_usecase.dart';
 import 'package:islamic_app/features/quran/domain/usecases/get_surah_usecase.dart';
 import 'package:islamic_app/features/quran/presentation/controllers/cubit/quran_cubit.dart';
+import 'package:islamic_app/features/quran/presentation/controllers/cubit/surah_cubit.dart';
 
 class QuranDi {
   static Future<void> initQuran() async {
     // cubit
-    di.registerFactory<QuranCubit>(() => QuranCubit(di(), di()));
+    di.registerFactory<QuranCubit>(() => QuranCubit(di()));
+    di.registerFactory<SurahCubit>(() => SurahCubit(di()));
 
     // use case
     di.registerLazySingleton<GetQuranUseCase>(() => GetQuranUseCase(di()));
