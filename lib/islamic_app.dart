@@ -18,7 +18,7 @@ class IslamicApp extends StatelessWidget {
         textTheme: GoogleFonts.cairoTextTheme(),
         scaffoldBackgroundColor: Color(0xFF141414),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Color.fromARGB(255, 172, 171, 171),
+          backgroundColor: Color(0xFF141414),
         ),
       ),
 

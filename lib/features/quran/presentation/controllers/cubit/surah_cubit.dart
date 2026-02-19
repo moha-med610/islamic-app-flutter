@@ -34,6 +34,7 @@ class SurahCubit extends Cubit<SurahState> {
           .play(UrlSource(audioUrl))
           .timeout(Duration(minutes: 1));
     } on TimeoutException catch (e) {
+      print(e);
       throw SurahError(failure: NetworkError());
     } finally {
       if (state is SurahSuccess) {
