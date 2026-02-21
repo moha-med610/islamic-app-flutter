@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:islamic_app/core/service/di_service.dart';
+import 'package:islamic_app/features/prayers/presentation/controllers/cubit/prayer_cubit.dart';
 import 'package:islamic_app/features/prayers/presentation/screens/prayer_screen.dart';
 import 'package:islamic_app/features/quran/presentation/controllers/cubit/quran_cubit.dart';
 import 'package:islamic_app/features/quran/presentation/screens/quran_screen.dart';
@@ -48,12 +49,15 @@ class _HomeScreenState extends State<HomeScreen> {
             BlocProvider<QuranCubit>(
               create: (_) => di<QuranCubit>()..getQuran(),
             ),
+            BlocProvider<PrayerCubit>(
+              create: (_) => di<PrayerCubit>()..getPrayerTimes(),
+            ),
           ],
           child: PageView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             controller: _pageController,
             onPageChanged: _onPageChanged,
-            children: [QuranScreen(), PrayerScreen()],
+            children: [const QuranScreen(), const PrayerScreen()],
           ),
         ),
       ),
