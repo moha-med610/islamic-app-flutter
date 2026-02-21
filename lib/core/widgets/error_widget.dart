@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:islamic_app/core/errors/error_model.dart';
-import 'package:islamic_app/core/errors/failure.dart';
-import 'package:islamic_app/features/quran/presentation/controllers/cubit/quran_cubit.dart';
 
 class ErrorView extends StatelessWidget {
-  const ErrorView({super.key});
+  const ErrorView(this.onButtonTap, {super.key});
+  final VoidCallback onButtonTap;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +34,7 @@ class ErrorView extends StatelessWidget {
             SizedBox(height: 30),
 
             CupertinoButton(
-              onPressed: () {
-                context.read<QuranCubit>().getQuran();
-              },
+              onPressed: onButtonTap,
               color: Colors.blue,
               child: Text(
                 "حاول مره اخري",

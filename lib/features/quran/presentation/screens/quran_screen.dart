@@ -8,6 +8,7 @@ import 'package:islamic_app/features/quran/presentation/controllers/cubit/quran_
 import 'package:islamic_app/features/quran/presentation/controllers/cubit/surah_cubit.dart';
 import 'package:islamic_app/features/quran/presentation/screens/surah_screen.dart';
 import 'package:islamic_app/features/quran/presentation/widgets/quran_widget.dart';
+import 'package:islamic_app/features/quran/presentation/widgets/quran_skelton_loading_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class QuranScreen extends StatelessWidget {
@@ -20,11 +21,11 @@ class QuranScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Color(0xFF141414).withOpacity(0.2),
+        backgroundColor: const Color(0xFF141414).withOpacity(0.2),
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
 
-        title: Text(
+        title: const Text(
           "القرآن الكريم",
           style: TextStyle(
             fontSize: 20,
@@ -43,25 +44,13 @@ class QuranScreen extends StatelessWidget {
       body: BlocBuilder<QuranCubit, QuranState>(
         builder: (context, state) {
           if (state is Error) {
-            return ErrorView();
+            return ErrorView(() {
+              context.read<QuranCubit>().getQuran();
+            });
           }
 
           if (state is Loading) {
-            return Skeletonizer(
-              enabled: true,
-              effect: ShimmerEffect(baseColor: Colors.grey.shade800),
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return QuranWidget(
-                    isVisible: false,
-                    title: "Surah Loading",
-                    subTitle: "120",
-                    onTap: () {},
-                  );
-                },
-              ),
-            );
+            return const SkeltonLoadingWidget();
           }
 
           if (state is SuccessQuran) {
