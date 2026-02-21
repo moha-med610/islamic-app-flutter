@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/core/service/di_service.dart';
@@ -6,6 +8,7 @@ import 'package:islamic_app/features/quran/presentation/controllers/cubit/quran_
 import 'package:islamic_app/features/quran/presentation/controllers/cubit/surah_cubit.dart';
 import 'package:islamic_app/features/quran/presentation/screens/surah_screen.dart';
 import 'package:islamic_app/features/quran/presentation/widgets/quran_widget.dart';
+import 'package:islamic_app/features/quran/presentation/widgets/quran_skelton_loading_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class QuranScreen extends StatelessWidget {
@@ -14,36 +17,40 @@ class QuranScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text(
-          "القرآن الكريم",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        elevation: 0,
+        backgroundColor: const Color(0xFF141414).withOpacity(0.2),
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
+
+        title: const Text(
+          "القرآن الكريم",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white60,
+          ),
+        ),
+
+        flexibleSpace: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Container(color: Colors.black.withOpacity(0.2)),
+          ),
+        ),
       ),
       body: BlocBuilder<QuranCubit, QuranState>(
         builder: (context, state) {
           if (state is Error) {
-            return ErrorView();
+            return ErrorView(() {
+              context.read<QuranCubit>().getQuran();
+            });
           }
 
           if (state is Loading) {
-            return Skeletonizer(
-              enabled: true,
-              effect: ShimmerEffect(baseColor: Colors.grey.shade800),
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return QuranWidget(
-                    isVisible: false,
-                    title: "Surah Loading",
-                    subTitle: "120",
-                    onTap: () {},
-                  );
-                },
-              ),
-            );
+            return const SkeltonLoadingWidget();
           }
 
           if (state is SuccessQuran) {

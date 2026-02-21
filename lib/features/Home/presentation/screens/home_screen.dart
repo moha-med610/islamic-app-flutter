@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:islamic_app/core/service/di_service.dart';
+import 'package:islamic_app/features/prayers/presentation/controllers/cubit/prayer_cubit.dart';
+import 'package:islamic_app/features/prayers/presentation/screens/prayer_screen.dart';
 import 'package:islamic_app/features/quran/presentation/controllers/cubit/quran_cubit.dart';
 import 'package:islamic_app/features/quran/presentation/screens/quran_screen.dart';
 
@@ -46,28 +49,30 @@ class _HomeScreenState extends State<HomeScreen> {
             BlocProvider<QuranCubit>(
               create: (_) => di<QuranCubit>()..getQuran(),
             ),
+            BlocProvider<PrayerCubit>(
+              create: (_) => di<PrayerCubit>()..getPrayerTimes(),
+            ),
           ],
           child: PageView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             controller: _pageController,
             onPageChanged: _onPageChanged,
-            children: [
-              QuranScreen(),
-              Container(color: Colors.green),
-            ],
+            children: [const QuranScreen(), const PrayerScreen()],
           ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.blue.shade900,
+        unselectedItemColor: Colors.white60,
         currentIndex: _currentIndex,
         onTap: _onNavBarTapped,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
+            icon: HugeIcon(icon: HugeIcons.strokeRoundedBookOpen01),
             label: 'القرآن الكريم',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.panorama_wide_angle_rounded),
+            icon: HugeIcon(icon: HugeIcons.strokeRoundedTimeSetting03),
             label: 'مواقيت الصلاه',
           ),
         ],

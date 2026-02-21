@@ -24,6 +24,6 @@ class QuranDi {
     // data source
     di.registerLazySingleton<QuranService>(() => QuranService(di()));
     // dio
-    di.registerLazySingleton<Dio>(() => Dio());
+    di<Dio>();
   }
 }

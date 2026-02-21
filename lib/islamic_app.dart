@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:islamic_app/core/service/cache_service.dart';
 import 'package:islamic_app/features/Home/presentation/screens/home_screen.dart';
+import 'package:islamic_app/features/onboarding/presentation/screens/onboarding_screen.dart';
 
 class IslamicApp extends StatelessWidget {
   const IslamicApp({super.key});
@@ -16,15 +18,13 @@ class IslamicApp extends StatelessWidget {
         textTheme: GoogleFonts.cairoTextTheme(),
         scaffoldBackgroundColor: Color(0xFF141414),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Color.fromARGB(255, 172, 171, 171),
+          backgroundColor: Color(0xFF141414),
         ),
       ),
 
-      home: HomeScreen(),
+      home: LocalDataService.getBool("is_show_Onboarding") != null
+          ? HomeScreen()
+          : OnBoardingScreen(),
     );
   }
 }
-
-// LocalDataService.getBool("is_show_Onboarding") != null
-//             ? HomeScreen()
-//             : OnBoardingScreen(),
