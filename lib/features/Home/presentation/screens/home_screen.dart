@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -7,38 +8,8 @@ import 'package:islamic_app/features/prayers/presentation/screens/prayer_screen.
 import 'package:islamic_app/features/quran/presentation/controllers/cubit/quran_cubit.dart';
 import 'package:islamic_app/features/quran/presentation/screens/quran_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
-  late PageController _pageController;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(initialPage: _currentIndex);
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  void _onPageChanged(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
-  void _onNavBarTapped(int index) {
-    _pageController.jumpToPage(index);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,29 +24,48 @@ class _HomeScreenState extends State<HomeScreen> {
               create: (_) => di<PrayerCubit>()..getPrayerTimes(),
             ),
           ],
-          child: PageView(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: _pageController,
-            onPageChanged: _onPageChanged,
-            children: [const QuranScreen(), const PrayerScreen()],
+          child: CupertinoTabScaffold(
+            tabBar: CupertinoTabBar(
+              backgroundColor: Colors.grey.shade900,
+              activeColor: Colors.blue.shade900,
+              inactiveColor: Colors.grey,
+              items: [
+                BottomNavigationBarItem(
+                  icon: HugeIcon(icon: HugeIcons.strokeRoundedBookOpen01),
+                  label: 'القرآن الكريم',
+                ),
+                BottomNavigationBarItem(
+                  icon: HugeIcon(icon: HugeIcons.strokeRoundedTimeSetting03),
+                  label: 'مواقيت الصلاه',
+                ),
+              ],
+            ),
+            tabBuilder: (BuildContext context, int index) {
+              switch (index) {
+                case 0:
+                  return const QuranScreen();
+                case 1:
+                  return const PrayerScreen();
+                default:
+                  return const SizedBox();
+              }
+            },
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.blue.shade900,
-        unselectedItemColor: Colors.white60,
-        currentIndex: _currentIndex,
-        onTap: _onNavBarTapped,
-        items: const [
-          BottomNavigationBarItem(
-            icon: HugeIcon(icon: HugeIcons.strokeRoundedBookOpen01),
-            label: 'القرآن الكريم',
-          ),
-          BottomNavigationBarItem(
-            icon: HugeIcon(icon: HugeIcons.strokeRoundedTimeSetting03),
-            label: 'مواقيت الصلاه',
-          ),
-        ],
+        // selectedItemColor: Colors.blue.shade900,
+        // unselectedItemColor: Colors.white60,
+        // currentIndex: _currentIndex,
+        // onTap: _onNavBarTapped,
+        // items: const [
+        //   BottomNavigationBarItem(
+        //     icon: HugeIcon(icon: HugeIcons.strokeRoundedBookOpen01),
+        //     label: 'القرآن الكريم',
+        //   ),
+        //   BottomNavigationBarItem(
+        //     icon: HugeIcon(icon: HugeIcons.strokeRoundedTimeSetting03),
+        //     label: 'مواقيت الصلاه',
+        //   ),
+        // ],
       ),
     );
   }

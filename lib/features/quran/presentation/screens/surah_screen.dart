@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +42,34 @@ class SurahScreen extends StatelessWidget {
             if (state is SurahSuccess) {
               return Column(
                 children: [
+                  SizedBox(
+                    width: .infinity,
+                    height: 48,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 50,
+                          height: 48,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: .circular(100),
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.keyboard_arrow_right,
+                              size: 40,
+                              fontWeight: .bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   AudioWidget(),
                   Expanded(
                     child: ListView.builder(

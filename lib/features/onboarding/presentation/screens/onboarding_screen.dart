@@ -11,9 +11,31 @@ class OnBoardingScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: .center,
           children: [
             Spacer(),
-            Image.asset("assets/icons/praying.png", width: 300),
+            Image.asset("assets/icons/praying.png", width: 200),
+            SizedBox(height: 20),
+            Text(
+              "رفيقك اليومي للعبادة",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 26,
+                fontWeight: .w900,
+              ),
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 35),
+              child: Text(
+                "اجمع بين قراءة القرآن، ومعرفة مواقيت الصلاة، في تطبيق واحد يساعدك على المحافظة على عبادتك.",
+                style: TextStyle(
+                  color: Colors.white54,
+                  fontSize: 16,
+                  fontWeight: .w600,
+                ),
+              ),
+            ),
             Spacer(),
             GestureDetector(
               onTap: () async {

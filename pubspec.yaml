@@ -41,7 +41,7 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icons/praying.png"
+  image_path: "assets/icons/icon_2.png"
   min_sdk_android: 21
 
 flutter:
@@ -50,7 +50,6 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
-    - assets/svgs/
 
   # fonts:
   #   - family: Schyler
